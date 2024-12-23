@@ -15,8 +15,24 @@ YARG's sACN data is conceptually based on the PDP Rock Band Stage Kit
 
 And a separate strobe light.
 
-This program translates that to 2, 4, or 8 of these cheap DMX lights: 
-- OOPSK 36LEDs RGB [PAR](https://hyliteledlighting.com/2020/05/12/br-vs-par-bulbs/) Lights - [36W LED PAR Can Lights](https://www.amazon.com/gp/product/B0CJLD5QXY)
+This program remaps the 8 sets of Stage Kit LEDs to 2, 4, or 8 cheap DMX [PAR](https://hyliteledlighting.com/2020/05/12/br-vs-par-bulbs/) lights, following these rules:
+- Blue -> Blue, Red -> Red, Green -> Green (reducing 24 LEDs to the 3 component colors within 2, 4, or 8 PAR lights)
+- Orange = red 255 + green 128
+- If strobe is set: change all lights to white, and set all DMX strobe channels
+- In 2-light mode:
+  - Light 1 maps to stage kit LEDs 1, 3, 5, and 7
+  - Light 2 maps to stage kit LEDs 2, 4, 6, and 8
+  - This generally works out as a nice alternating pattern
+- In 4-light mode:
+  - Light 1 maps to stage kit LEDs 1 and 4
+  - Light 2 maps to stage kit LEDs 2 and 5
+  - Light 3 maps to stage kit LEDs 3 and 6
+  - Light 4 maps to stage kit LEDs 4 and 7
+  - This generally means marching left to right or right to left
+  - [4-light demo](https://www.youtube.com/watch?v=yCDondbEzHc)
+
+These are the lights I used:
+- OOPSK 36LEDs RGB PAR Lights - [36W LED PAR Can Lights](https://www.amazon.com/gp/product/B0CJLD5QXY)
 - Note that each light is 36 x 1W LEDs - that means 12 blue, 12 red, and 12 green, where the LEDs of each color are all controlled as one - they are *not* individually addressable.  Each light is a cheap "wash" light designed to produce a single color.  I was going to get one of those ridiculous spinning laser things, but that's simply too much stimulation for my tired old retinas.
 - You'll also need a male-female cable to go from DMX out to the next light's DMX in.  These can be stubby little cables like [3.2ft DMX cable](https://www.amazon.com/gp/product/B07D4FMQK4)
 - Depending on cable length and number of lights, you may need a 120-ohm [DMX terminator](https://www.amazon.com/gp/product/B000PO1H94) plugged in to the last light's DMX out in the chain.
@@ -39,21 +55,6 @@ Right now I'm lazy, so the number of lights should be set in the Program.cs line
  ```
   static private int light_count = 4; // 2, 4, or 8 supported
 ```
-This program remaps the 8 sets of Stage Kit LEDs per the following rules:
-- Blue -> Blue, Red -> Red, Green -> Green (reducing 24 LEDs to the 3 component colors within 2, 4, or 8 PAR lights)
-- Orange = red 255 + green 128
-- If strobe is set: change all lights to white, and set all DMX strobe channels
-- In 2-light mode:
-  - Light 1 maps to stage kit LEDs 1, 3, 5, and 7
-  - Light 2 maps to stage kit LEDs 2, 4, 6, and 8
-  - This generally works out as a nice alternating pattern
-- In 4-light mode:
-  - Light 1 maps to stage kit LEDs 1 and 4
-  - Light 2 maps to stage kit LEDs 2 and 5
-  - Light 3 maps to stage kit LEDs 3 and 6
-  - Light 4 maps to stage kit LEDs 4 and 7
-  - This generally means marching left to right or right to left
-  - [4-light demo](https://www.youtube.com/watch?v=yCDondbEzHc)
 
 ## Dependencies
 

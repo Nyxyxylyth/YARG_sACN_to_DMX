@@ -59,6 +59,7 @@ The low-rent USB->DMX adapter I used does not have optical isolation, so beware 
 - Touch something tied to earth ground before touching the USB interface, lights, or DMX cables
 - ESD is more likely in low-humidity environments - a humidifier can help
 - Shuffling your feet with some combinations of footwear and floor coverings (e.g., shag carpet) is a particularly bad idea
+- Power the computer and the lights from the same circuit if you can
 
 ## Dependencies
 

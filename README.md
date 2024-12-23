@@ -71,7 +71,6 @@ The low-rent USB->DMX adapter I used does not have optical isolation, so beware 
 This C# program builds with [Microsoft Visual Studio Community 2022](https://visualstudio.microsoft.com/downloads/).
 
 This project relies on these GitHub projects:
-- https://github.com/wberdowski/DMX.NET/tree/master/Dmx.Net
-  - Forked to https://github.com/Nyxyxylyth/DMX.NET to add some hot-attach fixes
+- https://github.com/Nyxyxylyth/DMX.NET (forked from https://github.com/wberdowski/DMX.NET/tree/master/Dmx.Net to allow hot attach and reconnecting)
 - https://github.com/HakanL/Haukcode.sACN
 

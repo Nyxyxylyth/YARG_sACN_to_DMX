@@ -34,9 +34,9 @@ This is the DMX 7-channel mapping used by the OOPSK lights.  There is no standar
 - 7: Mode (always set to 0)
 
 Right now I'm lazy, so the number of lights should be set in the Program.cs line below:
- 
+ ```
   static private int light_count = 4; // 2, 4, or 8 supported
-
+```
 This program remaps the 8 sets of Stage Kit LEDs per the following rules:
 - Blue -> Blue, Red -> Red, Green -> Green (reducing 24 LEDs to the 3 component colors within 2, 4, or 8 PAR lights)
 - Orange = red 255 + green 128

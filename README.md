@@ -14,23 +14,31 @@ YARG's sACN data is conceptually based on the PDP Rock Band Stage Kit:
 And a separate strobe light.
 
 This program translates that to these cheap DMX lights:
-OOPSK 36LEDs RGB Par Lights - 36W LED Par Can Lights
-https://www.amazon.com/gp/product/B0CJLD5QXY
+- OOPSK 36LEDs RGB Par Lights - 36W LED Par Can Lights
+- https://www.amazon.com/gp/product/B0CJLD5QXY
 
 Each light must be configured in 7-channel mode - displaying:
-A001, A008 (2-light mode)
-A001, A008, A015, A022 (4-light mode)
-A001, A008, A015, A022, A029, A036, A043, A051 (8-light mode)
-Channel 1: 
+- A001, A008 (2-light mode)
+- A001, A008, A015, A022 (4-light mode)
+- A001, A008, A015, A022, A029, A036, A043, A051 (8-light mode)
+
+DMX 7-channel mapping:
+- 1: Master Dimmer
+- 2: Red Dimmer
+- 3: Green Dimmer
+- 4: Blue Dimmer
+- 5: RGB (always set to 0)
+- 6: Strobe speed
+- 7: Mode (always set to 0)
 
 Right now I'm lazy, so the number of lights should be set in the line below:
+ 
   static private int light_count = 4;
 
 This program remaps the 8 sets of Stage Kit LEDs per the following rules:
 - Blue -> Blue, Red -> Red, Green -> Green
 - Orange = red + green (okay, sure, it's yellow)
-- If strobe is set: change all lights to white,
-    and set all DMX strobe channels
+- If strobe is set: change all lights to white, and set all DMX strobe channels
 
 ## Dependencies
 

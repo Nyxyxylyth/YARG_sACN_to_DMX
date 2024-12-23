@@ -39,7 +39,7 @@ These are the lights I used:
 Each light must be configured in 7-channel mode, configured by buttons on the back, to display on the back panel:
 - A001, A008 (2-light mode)
 - A001, A008, A015, A022 (4-light mode)
-- A001, A008, A015, A022, A029, A036, A043, A051 (8-light mode)
+- A001, A008, A015, A022, A029, A036, A043, A050 (8-light mode)
 
 This is the DMX 7-channel mapping used by the OOPSK lights.  There is no standard for DMX channel definitions, so other lights may be different:
 - 1: Master Dimmer

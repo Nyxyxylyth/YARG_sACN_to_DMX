@@ -3,7 +3,7 @@
 This program reads [sACN](https://store.chipkin.com/articles/streaming-architecture-for-control-networks-sacn) data from YARG,
 transforms it to match 2, 4, or 8 [DMX](https://en.wikipedia.org/wiki/DMX512) lights,
 and then sends the resulting DMX universe
-over an FTDI-based USB->DMX converter, such as this one: [DSD TECH USB to DMX cable](https://www.amazon.com/gp/product/B07WV6P5W6).  Any adapter based on FTDI FT232x should be fine.
+over an FTDI-based USB->DMX converter, such as this one: [DSD TECH USB to DMX cable](https://www.amazon.com/gp/product/B07WV6P5W6)
 
 YARG's sACN data is conceptually based on the PDP Rock Band Stage Kit:
 - inner diamond of 8 blue lights
@@ -54,6 +54,11 @@ Right now I'm lazy, so the number of lights should be set in the Program.cs line
  ```
   static private int light_count = 4; // 2, 4, or 8 supported
 ```
+
+The low-rent USB->DMX adapter I used does not have optical isolation, so beware of [ESD](https://en.wikipedia.org/wiki/Electrostatic_discharge):
+- Touch something tied to earth ground before touching the USB interface, lights, or DMX cables
+- ESD is more likely in low-humidity environments - a humidifier can help
+- Shuffling your feet with some combinations of footwear and floor coverings (e.g., shag carpet) is a particularly bad idea
 
 ## Dependencies
 

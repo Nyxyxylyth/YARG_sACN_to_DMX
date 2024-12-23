@@ -40,7 +40,7 @@ This program remaps the 8 sets of Stage Kit LEDs to 2, 4, or 8 cheap DMX [PAR](h
 You'll need:
 - An FTDI-based USB->DMX converter, such as this one: [DSD TECH USB to DMX cable](https://www.amazon.com/gp/product/B07WV6P5W6)
 - 2, 4, or 8 DMX lights with the same 7-channel mapping as these OOPSK 36LEDs RGB PAR Lights: [36W LED PAR Can Lights](https://www.amazon.com/gp/product/B0CJLD5QXY)
-- If you just want to run the software, head to the releases page, download the zip, expand it, and run YARG_sACN_to_DMX.exe
+- If you just want to run the software, head to the [releases](https://github.com/Nyxyxylyth/YARG_sACN_to_DMX/releases) page, download the zip, expand it, and run YARG_sACN_to_DMX.exe
 - You'll also need a male-female cable to daisy-chain each light's DMX out to the next light's DMX in.  These can be stubby little cables like [3.2ft DMX cable](https://www.amazon.com/gp/product/B07D4FMQK4).  You can run up to 1000 feet total.
 - Depending on cable length and number of lights, you may need a 120-ohm [DMX terminator](https://www.amazon.com/gp/product/B000PO1H94) plugged in to the last light's DMX out in the chain.
 - Each light must be configured in 7-channel mode, configured by buttons on the back, to display on the back panel:

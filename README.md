@@ -19,7 +19,8 @@ This program translates that to 2, 4, or 8 of these cheap DMX lights:
 - OOPSK 36LEDs RGB [PAR](https://hyliteledlighting.com/2020/05/12/br-vs-par-bulbs/) Lights - 36W LED PAR Can Lights
 - https://www.amazon.com/gp/product/B0CJLD5QXY
 - Note that each light is 36 x 1W LEDs - that means 12 blue, 12 red, and 12 green, where the LEDs of each color are all controlled as one - they are *not* individually addressable.  Each light is a cheap "wash" light designed to produce a single color.  I was going to get one of those ridiculous spinning laser things, but that's simply too much stimulation for my tired old retinas.
-- Depending on cable length and number of lights, you may need a 120-ohm [DMX terminator](https://www.amazon.com/gp/product/B000PO1H94)
+- You'll also need a male-female cable to go from DMX out to the next light's DMX in.  These can be stubby little cables like [3.2ft DMX cable](https://www.amazon.com/gp/product/B07D4FMQK4)
+- Depending on cable length and number of lights, you may need a 120-ohm [DMX terminator](https://www.amazon.com/gp/product/B000PO1H94) plugged in to the last light's DMX out in the chain.
 
 Each light must be configured in 7-channel mode, configured by buttons on the back, to display on the back panel:
 - A001, A008 (2-light mode)

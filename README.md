@@ -61,7 +61,6 @@ This program builds with Microsoft Visual Studio Community 2022.
 
 This project relies on these GitHub projects:
 - https://github.com/wberdowski/DMX.NET/tree/master/Dmx.Net
-  - I made a separate fork of this, just so I could keep everything 64-bit and .NET 8.0
-  - https://github.com/Nyxyxylyth/DMX.NET
+  - I made a separate fork of this, just so I could keep everything 64-bit and .NET 8.0 at https://github.com/Nyxyxylyth/DMX.NET
 - https://github.com/HakanL/Haukcode.sACN
 

@@ -11,7 +11,7 @@ YARG's sACN data is conceptually based on the PDP Rock Band Stage Kit
 - concentric circle of 8 green lights
 - outer circle of alternating red and orange lights
 
-      ![](https://github.com/Nyxyxylyth/YARG_sACN_to_DMX/blob/master/stagekit.gif)
+    ![](https://github.com/Nyxyxylyth/YARG_sACN_to_DMX/blob/master/stagekit.gif)
 
 And a separate strobe light.
 

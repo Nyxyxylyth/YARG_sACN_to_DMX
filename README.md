@@ -53,6 +53,7 @@ This program remaps the 8 sets of Stage Kit LEDs per the following rules:
   - Light 3 maps to stage kit LEDs 3 and 6
   - Light 4 maps to stage kit LEDs 4 and 7
   - This generally means marching left to right or right to left
+  - [4-light demo](https://www.youtube.com/watch?v=yCDondbEzHc)
 
 ## Dependencies
 

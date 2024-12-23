@@ -29,6 +29,10 @@ This program remaps the 8 sets of Stage Kit LEDs to 2, 4, or 8 cheap DMX [PAR](h
   - Stage kit LEDs 4 and 7 drive DMX light 4
   - This generally means marching left to right or right to left
   - [4-light demo on YouTube](https://www.youtube.com/watch?v=yCDondbEzHc)
+- In 8-light mode, each Stage kit LED drives one DMX light.
+  - [8-light demo on YouTube](https://youtu.be/IIHRgSiQf0o)
+- You can toggle the number of lights in the console app with the L key.
+- You can reduce the master dimming level by 16 with every press of the M key (wrapping back around to 255 after 15).
 
 These are the lights I used:
 - OOPSK 36LEDs RGB PAR Lights - [36W LED PAR Can Lights](https://www.amazon.com/gp/product/B0CJLD5QXY)
@@ -67,6 +71,6 @@ This C# program builds with [Microsoft Visual Studio Community 2022](https://vis
 
 This project relies on these GitHub projects:
 - https://github.com/wberdowski/DMX.NET/tree/master/Dmx.Net
-  - I made a separate fork of this, just so I could keep everything 64-bit and .NET 8.0 at https://github.com/Nyxyxylyth/DMX.NET
+  - Forked to https://github.com/Nyxyxylyth/DMX.NET to add some hot-attach fixes
 - https://github.com/HakanL/Haukcode.sACN
 

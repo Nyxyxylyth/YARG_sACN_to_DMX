@@ -34,7 +34,8 @@ This program remaps the 8 sets of Stage Kit LEDs to 2, 4, or 8 cheap DMX [PAR](h
 - You can toggle the number of lights in the console app with the L key.
 - You can reduce the master dimming level by 16 with every press of the M key (wrapping back around to 255 after 15).
 
-#How to run it
+
+## How to run it
 
 You'll need:
 - An FTDI-based USB->DMX converter, such as this one: [DSD TECH USB to DMX cable](https://www.amazon.com/gp/product/B07WV6P5W6)

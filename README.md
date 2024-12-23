@@ -19,7 +19,7 @@ This program translates that to these cheap DMX lights:
 - https://www.amazon.com/gp/product/B0CJLD5QXY
 - Note that each light is 36 x 1W LEDs - that means 12 blue, 12 red, and 12 green, where the LEDs of each color are all controlled as one - they are *not* individually addressable.  Each light is a cheap "wash" light designed to produce a single color.  I was going to get one of those ridiculous spinning laser things, but that's simply too much stimulation for my tired old retinas.
 
-Each light must be configured in 7-channel mode - displaying:
+Each light must be configured in 7-channel mode, configured by buttons on the back, to display on the back panel:
 - A001, A008 (2-light mode)
 - A001, A008, A015, A022 (4-light mode)
 - A001, A008, A015, A022, A029, A036, A043, A051 (8-light mode)

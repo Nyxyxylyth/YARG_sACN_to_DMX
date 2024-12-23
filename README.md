@@ -1,6 +1,6 @@
 # YARG_sACN_to_DMX
 
-This program reads sACN data from YARG,
+This program reads [sACN](https://store.chipkin.com/articles/streaming-architecture-for-control-networks-sacn) data from YARG,
 transforms it to match 2, 4, or 8 [DMX](https://en.wikipedia.org/wiki/DMX512) lights,
 and then sends the resulting DMX universe
 over an FTDI-based USB->DMX converter, such as this one:

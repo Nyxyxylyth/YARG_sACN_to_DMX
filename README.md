@@ -49,6 +49,8 @@ You'll need:
   - A001, A008, A015, A022, A029, A036, A043, A050 (8-light mode)
 - Note that each light is a "wash" light, designed to produce a single color.  There are 36 x 1W LEDs: that means 12 blue, 12 red, and 12 green, where the LEDs of each color are all controlled as one, and are *not* individually addressable. I was going to get one of those ridiculous spinning laser things, but that's simply too much stimulation for my tired old retinas.
 
+## Other stuff
+
 This is the DMX 7-channel mapping used by the OOPSK lights.  There is no standard for DMX channel definitions, so other lights may be different:
 - 1: Master Dimmer
 - 2: Red Dimmer

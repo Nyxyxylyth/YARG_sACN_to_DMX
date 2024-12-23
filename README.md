@@ -14,9 +14,10 @@ YARG's sACN data is conceptually based on the PDP Rock Band Stage Kit:
 
 And a separate strobe light.
 
-This program translates that to these cheap DMX lights:
+This program translates that to these cheap DMX lights: 
 - OOPSK 36LEDs RGB Par Lights - 36W LED Par Can Lights
 - https://www.amazon.com/gp/product/B0CJLD5QXY
+- Note that each light is 36 x 1W LEDs - that means 12 blue, 12 red, and 12 green, where the LEDs of each color are all controlled as one - they are *not* individually addressable.  This is a cheap "wash" light designed to product a single color.  I was going to get one of those ridiculous spinning laser things, but that's simply too much stimulation for my tired old retinas.
 
 Each light must be configured in 7-channel mode - displaying:
 - A001, A008 (2-light mode)

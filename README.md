@@ -1,17 +1,16 @@
+# YARG_sACN_to_DMX
+
 This program reads sACN data from YARG,
 transforms it to match 2, 4, or 8 DMX outputs,
 and then sends the resulting DMX universe
 over an FTDI-based USB->DMX converter.
-
-This project relies on these GitHub projects:
-- https://github.com/wberdowski/DMX.NET/tree/master/Dmx.Net
-- https://github.com/HakanL/Haukcode.sACN
 
 YARG's sACN data is conceptually based on the PDP Rock Band Stage Kit:
 - inner circle of 8 green lights
 - concentric circle of 8 blue ilghts
 - concentric circle of 8 orange ilghts
 - concentric circle of 8 red ilghts
+
 And a separate strobe light.
 
 This program translates that to these cheap DMX lights:
@@ -32,3 +31,9 @@ This program remaps the 8 sets of Stage Kit LEDs per the following rules:
 - Orange = red + green (okay, sure, it's yellow)
 - If strobe is set: change all lights to white,
     and set all DMX strobe channels
+
+## Dependencies
+This project relies on these GitHub projects:
+- https://github.com/wberdowski/DMX.NET/tree/master/Dmx.Net
+- https://github.com/HakanL/Haukcode.sACN
+

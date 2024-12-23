@@ -7,7 +7,7 @@ over an FTDI-based USB->DMX converter, such as this one: [DSD TECH USB to DMX ca
 - Any adapter based on FTDI FT232x should be fine.
 
 YARG's sACN data is conceptually based on the PDP Rock Band Stage Kit
-- inner square of 8 blue lights
+- inner diamond of 8 blue lights
 - concentric circle of 8 green lights
 - outer circle of alternating red and orange lights
 

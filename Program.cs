@@ -343,24 +343,30 @@ public class Program
             ((byte)dmxData.GetValue(18) != 0) ||
             ((byte)dmxData.GetValue(34) != 0) ||
             ((byte)dmxData.GetValue(50) != 0) ||
-            ((byte)dmxData.GetValue(4) != 0) ||
+        {
+            green[0] = 255;
+        }
+        else if (((byte)dmxData.GetValue(4) != 0) ||
             ((byte)dmxData.GetValue(20) != 0) ||
             ((byte)dmxData.GetValue(36) != 0) ||
             ((byte)dmxData.GetValue(52) != 0))
         {
-            green[0] = 255;
+            green[0] = 128;
         }
 
         if (((byte)dmxData.GetValue(10) != 0) ||
             ((byte)dmxData.GetValue(26) != 0) ||
             ((byte)dmxData.GetValue(42) != 0) ||
-            ((byte)dmxData.GetValue(58) != 0) ||
-            ((byte)dmxData.GetValue(12) != 0) ||
-            ((byte)dmxData.GetValue(28) != 0) ||
-            ((byte)dmxData.GetValue(44) != 0) ||
-            ((byte)dmxData.GetValue(60) != 0))
+            ((byte)dmxData.GetValue(58) != 0) )
         {
             green[1] = 255;
+        }
+        else if(((byte)dmxData.GetValue(12) != 0) ||
+                ((byte)dmxData.GetValue(28) != 0) ||
+                ((byte)dmxData.GetValue(44) != 0) ||
+                ((byte)dmxData.GetValue(60) != 0))
+        {
+            green[1] = 128;
         }
 
         // strobe: 7 15 23 31 39 47 55 63 (-1)
@@ -455,34 +461,46 @@ public class Program
 
         if (((byte)dmxData.GetValue(2) != 0) ||
             ((byte)dmxData.GetValue(34) != 0) ||
-            ((byte)dmxData.GetValue(4) != 0) ||
-            ((byte)dmxData.GetValue(36) != 0))
         {
             green[0] = 255;
         }
+        else if (((byte)dmxData.GetValue(4) != 0) ||
+            ((byte)dmxData.GetValue(36) != 0))
+        {
+            green[0] = 128;
+        }
 
         if (((byte)dmxData.GetValue(10) != 0) ||
-            ((byte)dmxData.GetValue(42) != 0) ||
-            ((byte)dmxData.GetValue(12) != 0) ||
-            ((byte)dmxData.GetValue(44) != 0))
+            ((byte)dmxData.GetValue(42) != 0))
         {
             green[1] = 255;
         }
+        else if (((byte)dmxData.GetValue(12) != 0) ||
+                 ((byte)dmxData.GetValue(44) != 0))
+        {
+            green[1] = 128;
+        }
 
         if (((byte)dmxData.GetValue(18) != 0) ||
-            ((byte)dmxData.GetValue(50) != 0) ||
-            ((byte)dmxData.GetValue(20) != 0) ||
-            ((byte)dmxData.GetValue(52) != 0))
+            ((byte)dmxData.GetValue(50) != 0) )
         {
             green[2] = 255;
         }
+        else if (((byte)dmxData.GetValue(20) != 0) ||
+            ((byte)dmxData.GetValue(52) != 0))
+        {
+            green[2] = 128;
+        }
 
         if (((byte)dmxData.GetValue(26) != 0) ||
-            ((byte)dmxData.GetValue(58) != 0) ||
-            ((byte)dmxData.GetValue(28) != 0) ||
-            ((byte)dmxData.GetValue(60) != 0))
+            ((byte)dmxData.GetValue(58) != 0))
         {
             green[3] = 255;
+        }
+        else if (((byte)dmxData.GetValue(28) != 0) ||
+            ((byte)dmxData.GetValue(60) != 0))
+        {
+            green[3] = 128;
         }
 
         // strobe: 7 15 23 31 39 47 55 63 (-1)
@@ -605,52 +623,84 @@ public class Program
             blue[7] = 255;
         }
 
-        if (((byte)dmxData.GetValue(2) != 0) ||
-            ((byte)dmxData.GetValue(4) != 0))
+        if (((byte)dmxData.GetValue(2) != 0) )
         {
             green[0] = 255;
         }
 
-        if (((byte)dmxData.GetValue(10) != 0) ||
-            ((byte)dmxData.GetValue(12) != 0))
+        if (((byte)dmxData.GetValue(10) != 0) )
         {
             green[1] = 255;
         }
 
-        if (((byte)dmxData.GetValue(18) != 0) ||
-            ((byte)dmxData.GetValue(20) != 0))
+        if (((byte)dmxData.GetValue(18) != 0) )
         {
             green[2] = 255;
         }
 
-        if (((byte)dmxData.GetValue(26) != 0) ||
-            ((byte)dmxData.GetValue(28) != 0))
+        if (((byte)dmxData.GetValue(26) != 0) )
         {
             green[3] = 255;
         }
 
-        if (((byte)dmxData.GetValue(34) != 0) ||
-            ((byte)dmxData.GetValue(36) != 0))
+        if (((byte)dmxData.GetValue(34) != 0) )
         {
             green[4] = 255;
         }
 
-        if (((byte)dmxData.GetValue(42) != 0) ||
-            ((byte)dmxData.GetValue(44) != 0))
+        if (((byte)dmxData.GetValue(42) != 0) )
         {
             green[5] = 255;
         }
 
-        if (((byte)dmxData.GetValue(50) != 0) ||
-            ((byte)dmxData.GetValue(52) != 0))
+        if (((byte)dmxData.GetValue(50) != 0) )
         {
             green[6] = 255;
         }
 
-        if (((byte)dmxData.GetValue(58) != 0) ||
-            ((byte)dmxData.GetValue(60) != 0))
+        if (((byte)dmxData.GetValue(58) != 0) )
         {
             green[7] = 255;
+        }
+
+        if (((byte)dmxData.GetValue(4) != 0))
+        {
+            green[0] = 128;
+        }
+
+        if (((byte)dmxData.GetValue(12) != 0))
+        {
+            green[1] = 128;
+        }
+
+        if (((byte)dmxData.GetValue(20) != 0))
+        {
+            green[2] = 128;
+        }
+
+        if (((byte)dmxData.GetValue(28) != 0))
+        {
+            green[3] = 128;
+        }
+
+        if (((byte)dmxData.GetValue(36) != 0))
+        {
+            green[4] = 128;
+        }
+
+        if (((byte)dmxData.GetValue(44) != 0))
+        {
+            green[5] = 128;
+        }
+
+        if (((byte)dmxData.GetValue(52) != 0))
+        {
+            green[6] = 128;
+        }
+
+        if (((byte)dmxData.GetValue(60) != 0))
+        {
+            green[7] = 128;
         }
 
         // strobe: 7 15 23 31 39 47 55 63 (-1)

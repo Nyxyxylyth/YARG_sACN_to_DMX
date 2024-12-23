@@ -19,14 +19,14 @@ This program remaps the 8 sets of Stage Kit LEDs to 2, 4, or 8 cheap DMX [PAR](h
 - Orange = red 255 + green 128
 - If strobe is set: change all lights to white, and set all DMX strobe channels
 - In 2-light mode:
-  - Light 1 maps to stage kit LEDs 1, 3, 5, and 7
-  - Light 2 maps to stage kit LEDs 2, 4, 6, and 8
+  - Stage kit LEDs 1, 3, 5, and 7 drive DMX light 1
+  - Stage kit LEDs 2, 4, 6, and 8 drive DMX light 2
   - This generally works out as a nice alternating pattern
 - In 4-light mode:
-  - Light 1 maps to stage kit LEDs 1 and 4
-  - Light 2 maps to stage kit LEDs 2 and 5
-  - Light 3 maps to stage kit LEDs 3 and 6
-  - Light 4 maps to stage kit LEDs 4 and 7
+  - Stage kit LEDs 1 and 4 drive DMX light 1
+  - Stage kit LEDs 2 and 5 drive DMX light 2
+  - Stage kit LEDs 3 and 6 drive DMX light 3
+  - Stage kit LEDs 4 and 7 drive DMX light 4
   - This generally means marching left to right or right to left
   - [4-light demo on YouTube](https://www.youtube.com/watch?v=yCDondbEzHc)
 

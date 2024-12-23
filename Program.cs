@@ -22,7 +22,6 @@
 // A001, A008 (2-light mode)
 // A001, A008, A015, A022 (4-light mode)
 // A001, A008, A015, A022, A029, A036, A043, A051 (8-light mode)
-// Channel 1: 
 // 
 // Right now I'm lazy, so the number of lights should be set in the line below:
 //   static private int light_count = 4;
@@ -66,6 +65,7 @@ using System.Reactive.Linq;
 using System.Net;
 using System.Threading.Channels;
 using System.Drawing;
+using System.Reflection.Metadata;
 
 
 namespace Haukcode.sACN;
@@ -78,6 +78,26 @@ public class Program
     private static MemoryPool<byte> memoryPool = MemoryPool<byte>.Shared;
     private static double last = 0;
 
+    private static byte[,] stageKitLeds = new byte[8, 4];
+
+    private static int manualOverrideLight;
+    enum OverrideControl
+    {
+        Override_none,
+        Override_Red,
+        Override_Green,
+        Override_Blue,
+        Override_Strobe
+    }
+
+    private static int manualOverrideControl;
+
+    private static DmxTimer dmxTimer = new DmxTimer();
+    private static OpenDmxController dmxController = new OpenDmxController(dmxTimer);
+
+    private static Semaphore consoleSemaphore = new Semaphore(1,1);
+
+
     static private Color[] light = {
                                         Color.FromArgb(0, 0, 0),
                                         Color.FromArgb(0, 0, 0),
@@ -89,7 +109,7 @@ public class Program
                                         Color.FromArgb(0, 0, 0)
                                     };
     static private byte strobe = 0;
-    static private int light_count = 4;
+    static private int light_count = 8;
 
     public static void Main(string[] args)
     {
@@ -98,12 +118,20 @@ public class Program
 
     static void Listen()
     {
+        Console.Clear();
+        Console.CursorVisible = false;
+        Console.ForegroundColor = ConsoleColor.Gray;
+        Console.Write("\x1B[1;12r"); // Set top 11 rows for scrolling area
+        Console.SetCursorPosition(0, 11);
+
         var recvClient = new SACNClient(
             senderId: acnSourceId,
             senderName: acnSourceName,
             localAddress: IPAddress.Any);
 
-        recvClient.OnError.Subscribe(e =>
+        consoleSemaphore.WaitOne();
+
+            recvClient.OnError.Subscribe(e =>
         {
             Console.WriteLine($"Error! {e.Message}");
         });
@@ -133,65 +161,182 @@ public class Program
         recvClient.JoinDMXUniverse(1);
 //        recvClient.JoinDMXUniverse(2);  // one is plenty for YARG
 
-        var timer = new DmxTimer();
-        var controller = new OpenDmxController(timer);
-
         Console.WriteLine("Starting...");
 
-        // Make sure your Open DMX interface is connected!
-        controller.Open(0);
+        // Try to connect to an Open DMX interface
+        try
+        {
+            dmxController.Open(0);
+            Console.WriteLine("DMX interface connected");
+        }
+        catch ( Exception e )
+        {
+            // try again later
+            Console.WriteLine("Error opening DMX interface");
+        }
 
-        Console.WriteLine("DMX Open");
 
         // Set values of the channel range (1-14)
-        controller.SetChannelRange(1, 255, 0, 255, 0, 0, 0, 0,
-                                      255, 255, 0, 0, 0, 0, 0);
+        dmxController.SetChannelRange(1, 255, 0, 255, 0, 0, 0, 0,
+                                         255, 255, 0, 0, 0, 0, 0);
 
         // Don't forget to start the timer.
-        timer.Start();
+        dmxTimer.Start();
 
         Console.WriteLine("DMX initial channels sent");
 
+        Console.SetCursorPosition(0, 18);
+        Console.ForegroundColor = ConsoleColor.White;
+        Console.Write("Stage Kit Data: 01234567");
+        Console.SetCursorPosition(14, 19); Console.ForegroundColor = ConsoleColor.Red;        Console.Write("R");
+        Console.SetCursorPosition(14, 20); Console.ForegroundColor = ConsoleColor.Green;      Console.Write("G");
+        Console.SetCursorPosition(14, 21); Console.ForegroundColor = ConsoleColor.DarkCyan;   Console.Write("B");
+        Console.SetCursorPosition(14, 22); Console.ForegroundColor = ConsoleColor.DarkYellow; Console.Write("O");
+
+        Console.SetCursorPosition(30, 18);
+        Console.ForegroundColor = ConsoleColor.White;
+        Console.Write("DMX Output");
+        Console.SetCursorPosition(30, 27);
+        Console.ForegroundColor = ConsoleColor.DarkGray;
+        Console.Write("press L to toggle 2/4/8 lights");
+
+        Console.SetCursorPosition(0, 11);
+        Console.ForegroundColor = ConsoleColor.Gray;
+
+        consoleSemaphore.Release();
+
         for (; ; )
         {
-            switch( light_count )
+            // If the USB->DMX controller gets unplugged, try to reconnect
+            if (dmxController.IsOpen == false)
             {
-                // Totally inelegant, but I'm still experimenting
-                case 2:
-                    controller.SetChannelRange(1, 
-                                                255, light[0].R, light[0].G, light[0].B, 0, strobe, 0,
-                                                255, light[1].R, light[1].G, light[1].B, 0, strobe, 0
-                                              );
-                    break;
-
-                case 4:
-                    controller.SetChannelRange(1,
-                                                255, light[0].R, light[0].G, light[0].B, 0, strobe, 0,
-                                                255, light[1].R, light[1].G, light[1].B, 0, strobe, 0,
-                                                255, light[2].R, light[2].G, light[2].B, 0, strobe, 0,
-                                                255, light[3].R, light[3].G, light[3].B, 0, strobe, 0
-                                              );
-                    break;
-
-                case 8:
-                    controller.SetChannelRange(1,
-                                                255, light[0].R, light[0].G, light[0].B, 0, strobe, 0,
-                                                255, light[1].R, light[1].G, light[1].B, 0, strobe, 0,
-                                                255, light[2].R, light[2].G, light[2].B, 0, strobe, 0,
-                                                255, light[3].R, light[3].G, light[3].B, 0, strobe, 0,
-                                                255, light[4].R, light[4].G, light[4].B, 0, strobe, 0,
-                                                255, light[5].R, light[5].G, light[5].B, 0, strobe, 0,
-                                                255, light[6].R, light[6].G, light[6].B, 0, strobe, 0,
-                                                255, light[7].R, light[7].G, light[7].B, 0, strobe, 0
-                                              );
-                    break;
+                try
+                {
+                    dmxController.Open(0);
+                }
+                catch (Exception e)
+                {
+                    // try again later
+                }
             }
+            else
+            {
+                // While USB-DMX is plugged in, update the DMX outputs
+
+                switch (light_count)
+                {
+                    // Totally inelegant, but I'm still experimenting
+                    case 2:
+                        dmxController.SetChannelRange(1,
+                                                    255, light[0].R, light[0].G, light[0].B, 0, strobe, 0,
+                                                    255, light[1].R, light[1].G, light[1].B, 0, strobe, 0
+                                                    );
+                        break;
+
+                    case 4:
+                        dmxController.SetChannelRange(1,
+                                                    255, light[0].R, light[0].G, light[0].B, 0, strobe, 0,
+                                                    255, light[1].R, light[1].G, light[1].B, 0, strobe, 0,
+                                                    255, light[2].R, light[2].G, light[2].B, 0, strobe, 0,
+                                                    255, light[3].R, light[3].G, light[3].B, 0, strobe, 0
+                                                    );
+                        break;
+
+                    case 8:
+                        dmxController.SetChannelRange(1,
+                                                    255, light[0].R, light[0].G, light[0].B, 0, strobe, 0,
+                                                    255, light[1].R, light[1].G, light[1].B, 0, strobe, 0,
+                                                    255, light[2].R, light[2].G, light[2].B, 0, strobe, 0,
+                                                    255, light[3].R, light[3].G, light[3].B, 0, strobe, 0,
+                                                    255, light[4].R, light[4].G, light[4].B, 0, strobe, 0,
+                                                    255, light[5].R, light[5].G, light[5].B, 0, strobe, 0,
+                                                    255, light[6].R, light[6].G, light[6].B, 0, strobe, 0,
+                                                    255, light[7].R, light[7].G, light[7].B, 0, strobe, 0
+                                                    );
+                        break;
+                }
+            }
+
+            // Make sure the main loop here isn't fighting with the YARG receive thread over the console
+            if (consoleSemaphore.WaitOne() == true)
+            {
+                // Update the table of lights (0..7) and RGB outputs
+                for (int i = 0; i < light_count; i++)
+                {
+                    Console.SetCursorPosition(30, 19 + i);
+                    Console.Write("\x1B[37mLight {0}: \x1B[31m{1:000} \x1B[32m{2:000} \x1B[36m{3:000}\u001b[37m      ", i, light[i].R, light[i].G, light[i].B);
+                }
+
+                // Update stage kit LED indicators
+                for (int j = 0; j < 4; j++)
+                {
+                    Console.SetCursorPosition(16, 19 + j);
+                    switch (j)
+                    {
+                        case 0: Console.ForegroundColor = ConsoleColor.Red; break;
+                        case 1: Console.ForegroundColor = ConsoleColor.Green; break;
+                        case 2: Console.ForegroundColor = ConsoleColor.Blue; break;
+                        case 3: Console.ForegroundColor = ConsoleColor.DarkYellow; break;
+                    }
+                    for (int i = 0; i < 8; i++)
+                    {
+                        if (stageKitLeds[i, j] == 0)
+                            Console.Write(" ");
+                        else
+                            Console.Write("*");
+                    }
+                }
+
+                Console.ForegroundColor = ConsoleColor.Gray;
+
+                // Update DMX connection status
+                Console.SetCursorPosition(42, 18);
+                if (dmxController.IsOpen == true)
+                {
+                    Console.Write("connected   ");
+                }
+                else
+                {
+                    Console.Write("disconnected");
+                }
+
+
+                // Handle pressing L key to toggle between number of lights (2/4/8)
+                if (Console.KeyAvailable)
+                {
+                    ConsoleKeyInfo keyPressed;
+                    keyPressed = Console.ReadKey(true);
+                    if (keyPressed.Key == ConsoleKey.L)
+                    {
+                        // Advance light count
+                        switch (light_count)
+                        {
+                            case 2: light_count = 4; break;
+                            case 4: light_count = 8; break;
+                            case 8:
+                                light_count = 2;
+                                // Erase the remaining lines
+                                for (int i = 2; i < 8; i++)
+                                {
+                                    Console.SetCursorPosition(30, 19 + i);
+                                    Console.Write("                    ");
+                                }
+                                break;
+                        }
+                    }
+                }
+
+                Console.SetCursorPosition(0, 11);
+
+                consoleSemaphore.Release();
+            }
+
             Thread.Sleep(10);  // shoot for 60 Hz
         }
 
         // Cleanup, ensure all channels are set to 0
-        timer.Dispose();
-        controller.Dispose();
+        dmxTimer.Dispose();
+        dmxController.Dispose();
     }
 
     private static async Task WritePacket(Channel<ReceiveDataPacket> channel, ReceiveDataPacket receiveData)
@@ -253,26 +398,25 @@ public class Program
         if (dataPacket == null)
             return;
 
-        Console.SetCursorPosition(0, 0);
-        Console.WriteLine($"+{sinceLast:N2}\t");
-        Console.WriteLine($"Packet from {dataPacket.SourceName}\tu{dataPacket.UniverseId}\ts{dataPacket.SequenceId}\t");
-        Console.WriteLine($"Data {string.Join(",", dataPacket.DMPLayer.Data.ToArray().Take(64))}...");
+        if (consoleSemaphore.WaitOne(0) == true)
+        {
+            Console.SetCursorPosition(0, 13);
+            //Console.WriteLine($"+{sinceLast:N2}              ");
+            Console.WriteLine($"Packet from {dataPacket.SourceName}\tu{dataPacket.UniverseId}\ts{dataPacket.SequenceId}            ");
+            //Console.WriteLine($"Data {string.Join(",", dataPacket.DMPLayer.Data.ToArray().Take(64))}...");
+            Console.SetCursorPosition(0, 11);
+            consoleSemaphore.Release();
+        }
 
         Array YARGdmxData;
         YARGdmxData = (Array)dataPacket.DMPLayer.Data.ToArray();
 
-
-        Console.SetCursorPosition(0, 7);
-        for (int i = 0; i < 64; i += 8)
+        for (int i = 0; i < 8; i++)
         {
-            for (int j = i; j < i + 8; j++)
+            for (int j = 0; j<4; j++)
             {
-                if ((byte)YARGdmxData.GetValue(j) != 0)
-                    Console.Write("*");
-                else
-                    Console.Write(" ");
+                stageKitLeds[i, j] = (byte) YARGdmxData.GetValue(i * 8 + 1 + j);
             }
-            Console.WriteLine();
         }
 
         switch (light_count)

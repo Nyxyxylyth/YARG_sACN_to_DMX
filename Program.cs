@@ -342,7 +342,7 @@ public class Program
         if (((byte)dmxData.GetValue(2) != 0) ||
             ((byte)dmxData.GetValue(18) != 0) ||
             ((byte)dmxData.GetValue(34) != 0) ||
-            ((byte)dmxData.GetValue(50) != 0) ||
+            ((byte)dmxData.GetValue(50) != 0) )
         {
             green[0] = 255;
         }
@@ -460,7 +460,7 @@ public class Program
         }
 
         if (((byte)dmxData.GetValue(2) != 0) ||
-            ((byte)dmxData.GetValue(34) != 0) ||
+            ((byte)dmxData.GetValue(34) != 0) )
         {
             green[0] = 255;
         }

@@ -37,7 +37,7 @@ Right now I'm lazy, so the number of lights should be set in the line below:
   static private int light_count = 4;
 
 This program remaps the 8 sets of Stage Kit LEDs per the following rules:
-- Blue -> Blue, Red -> Red, Green -> Green
+- Blue -> Blue, Red -> Red, Green -> Green (reducing 24 LEDs to the 3 component colors within 2, 4, or 8 PAR lights)
 - Orange = red 255 + green 128
 - If strobe is set: change all lights to white, and set all DMX strobe channels
 

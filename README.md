@@ -6,11 +6,10 @@ and then sends the resulting DMX universe
 over an FTDI-based USB->DMX converter, such as this one: [DSD TECH USB to DMX cable](https://www.amazon.com/gp/product/B07WV6P5W6)
 - Any adapter based on FTDI FT232x should be fine.
 
-YARG's sACN data is conceptually based on the PDP Rock Band Stage Kit:
+YARG's sACN data is conceptually based on the PDP Rock Band Stage Kit   ![](https://github.com/Nyxyxylyth/YARG_sACN_to_DMX/blob/master/stagekit.gif)
 - inner square of 8 blue lights
 - concentric circle of 8 green lights
 - outer circle of alternating red and orange lights
-![](https://github.com/Nyxyxylyth/YARG_sACN_to_DMX/blob/master/stagekit.gif)
 
 And a separate strobe light.
 

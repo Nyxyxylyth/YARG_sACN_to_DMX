@@ -37,7 +37,7 @@ Right now I'm lazy, so the number of lights should be set in the line below:
 
 This program remaps the 8 sets of Stage Kit LEDs per the following rules:
 - Blue -> Blue, Red -> Red, Green -> Green
-- Orange = red + green (okay, sure, it's yellow)
+- Orange = red 255 + green 128
 - If strobe is set: change all lights to white, and set all DMX strobe channels
 
 ## Dependencies

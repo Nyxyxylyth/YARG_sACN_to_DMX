@@ -33,6 +33,9 @@ This program remaps the 8 sets of Stage Kit LEDs per the following rules:
     and set all DMX strobe channels
 
 ## Dependencies
+
+This program builds with Microsoft Visual Studio Community 2022.
+
 This project relies on these GitHub projects:
 - https://github.com/wberdowski/DMX.NET/tree/master/Dmx.Net
 - https://github.com/HakanL/Haukcode.sACN

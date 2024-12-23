@@ -54,11 +54,6 @@ This is the DMX 7-channel mapping used by the OOPSK lights.  There is no standar
 - 6: Strobe speed
 - 7: Mode (always set to 0)
 
-Right now I'm lazy, so the number of lights should be set in the Program.cs line below:
- ```
-  static private int light_count = 4; // 2, 4, or 8 supported
-```
-
 The low-rent USB->DMX adapter I used does not have optical isolation, so beware of [ESD](https://en.wikipedia.org/wiki/Electrostatic_discharge):
 - Touch something tied to earth ground before touching the USB interface, lights, or DMX cables
 - ESD is more likely in low-humidity environments - a humidifier can help

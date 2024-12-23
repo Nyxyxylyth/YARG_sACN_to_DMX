@@ -3,7 +3,8 @@
 This program reads sACN data from YARG,
 transforms it to match 2, 4, or 8 DMX outputs,
 and then sends the resulting DMX universe
-over an FTDI-based USB->DMX converter.
+over an FTDI-based USB->DMX converter, such as this one:
+https://www.amazon.com/gp/product/B07WV6P5W6
 
 YARG's sACN data is conceptually based on the PDP Rock Band Stage Kit:
 - inner circle of 8 green lights

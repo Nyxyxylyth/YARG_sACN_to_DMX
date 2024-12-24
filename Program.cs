@@ -108,8 +108,11 @@ public class Program
                                         Color.FromArgb(0, 0, 0),
                                         Color.FromArgb(0, 0, 0)
                                     };
+    private const int LIGHT_LIMIT = 8;
     static private byte strobe = 0;
-    static private int light_count = 8;
+    static private int light_count = LIGHT_LIMIT;
+    static private byte master_dimming = 255;
+    static private ConsoleKey manualKey = ConsoleKey.None;
 
     public static void Main(string[] args)
     {
@@ -167,23 +170,15 @@ public class Program
         try
         {
             dmxController.Open(0);
-            Console.WriteLine("DMX interface connected");
         }
         catch ( Exception e )
         {
             // try again later
-            Console.WriteLine("Error opening DMX interface");
         }
 
 
-        // Set values of the channel range (1-14)
-        dmxController.SetChannelRange(1, 255, 0, 255, 0, 0, 0, 0,
-                                         255, 255, 0, 0, 0, 0, 0);
-
         // Don't forget to start the timer.
         dmxTimer.Start();
-
-        Console.WriteLine("DMX initial channels sent");
 
         Console.SetCursorPosition(0, 18);
         Console.ForegroundColor = ConsoleColor.White;
@@ -199,6 +194,10 @@ public class Program
         Console.SetCursorPosition(30, 27);
         Console.ForegroundColor = ConsoleColor.DarkGray;
         Console.Write("press L to toggle 2/4/8 lights");
+        Console.SetCursorPosition(30, 28);
+        Console.Write("press M to toggle master dimming: 255");
+        Console.SetCursorPosition(30, 29);
+        Console.Write("press 0-7 for manual control: off");
 
         Console.SetCursorPosition(0, 11);
         Console.ForegroundColor = ConsoleColor.Gray;
@@ -221,71 +220,102 @@ public class Program
             }
             else
             {
-                // While USB-DMX is plugged in, update the DMX outputs
-
-                switch (light_count)
+                if( manualKey != ConsoleKey.None )
                 {
-                    // Totally inelegant, but I'm still experimenting
-                    case 2:
-                        dmxController.SetChannelRange(1,
-                                                    255, light[0].R, light[0].G, light[0].B, 0, strobe, 0,
-                                                    255, light[1].R, light[1].G, light[1].B, 0, strobe, 0
-                                                    );
-                        break;
+                    // for manual control, zero all lights
+                    Color[] manualLight = {
+                                        Color.FromArgb(0, 0, 0),
+                                        Color.FromArgb(0, 0, 0),
+                                        Color.FromArgb(0, 0, 0),
+                                        Color.FromArgb(0, 0, 0),
+                                        Color.FromArgb(0, 0, 0),
+                                        Color.FromArgb(0, 0, 0),
+                                        Color.FromArgb(0, 0, 0),
+                                        Color.FromArgb(0, 0, 0)
+                                    };
 
-                    case 4:
-                        dmxController.SetChannelRange(1,
-                                                    255, light[0].R, light[0].G, light[0].B, 0, strobe, 0,
-                                                    255, light[1].R, light[1].G, light[1].B, 0, strobe, 0,
-                                                    255, light[2].R, light[2].G, light[2].B, 0, strobe, 0,
-                                                    255, light[3].R, light[3].G, light[3].B, 0, strobe, 0
-                                                    );
-                        break;
-
-                    case 8:
-                        dmxController.SetChannelRange(1,
-                                                    255, light[0].R, light[0].G, light[0].B, 0, strobe, 0,
-                                                    255, light[1].R, light[1].G, light[1].B, 0, strobe, 0,
-                                                    255, light[2].R, light[2].G, light[2].B, 0, strobe, 0,
-                                                    255, light[3].R, light[3].G, light[3].B, 0, strobe, 0,
-                                                    255, light[4].R, light[4].G, light[4].B, 0, strobe, 0,
-                                                    255, light[5].R, light[5].G, light[5].B, 0, strobe, 0,
-                                                    255, light[6].R, light[6].G, light[6].B, 0, strobe, 0,
-                                                    255, light[7].R, light[7].G, light[7].B, 0, strobe, 0
-                                                    );
-                        break;
+                    // then set the selected one to blue
+                    manualLight[manualKey - ConsoleKey.D0] = Color.FromArgb(0, 0, 255);
+                    dmxController.SetChannelRange(1,
+                                                master_dimming, manualLight[0].R, manualLight[0].G, manualLight[0].B, 0, strobe, 0,
+                                                master_dimming, manualLight[1].R, manualLight[1].G, manualLight[1].B, 0, strobe, 0,
+                                                master_dimming, manualLight[2].R, manualLight[2].G, manualLight[2].B, 0, strobe, 0,
+                                                master_dimming, manualLight[3].R, manualLight[3].G, manualLight[3].B, 0, strobe, 0,
+                                                master_dimming, manualLight[4].R, manualLight[4].G, manualLight[4].B, 0, strobe, 0,
+                                                master_dimming, manualLight[5].R, manualLight[5].G, manualLight[5].B, 0, strobe, 0,
+                                                master_dimming, manualLight[6].R, manualLight[6].G, manualLight[6].B, 0, strobe, 0,
+                                                master_dimming, manualLight[7].R, manualLight[7].G, manualLight[7].B, 0, strobe, 0
+                                                );
                 }
-            }
-
-            // Make sure the main loop here isn't fighting with the YARG receive thread over the console
-            if (consoleSemaphore.WaitOne() == true)
-            {
-                // Update the table of lights (0..7) and RGB outputs
-                for (int i = 0; i < light_count; i++)
+                else
                 {
-                    Console.SetCursorPosition(30, 19 + i);
-                    Console.Write("\x1B[37mLight {0}: \x1B[31m{1:000} \x1B[32m{2:000} \x1B[36m{3:000}\u001b[37m      ", i, light[i].R, light[i].G, light[i].B);
-                }
+                    // While USB-DMX is plugged in, update the DMX outputs
+                    switch (light_count)
+                    {
+                        // Totally inelegant, but I'm still experimenting
+                        case 2:
+                            dmxController.SetChannelRange(1,
+                                                        master_dimming, light[0].R, light[0].G, light[0].B, 0, strobe, 0,
+                                                        master_dimming, light[1].R, light[1].G, light[1].B, 0, strobe, 0
+                                                        );
+                            break;
 
-                // Update stage kit LED indicators
-                for (int j = 0; j < 4; j++)
-                {
-                    Console.SetCursorPosition(16, 19 + j);
-                    switch (j)
-                    {
-                        case 0: Console.ForegroundColor = ConsoleColor.Red; break;
-                        case 1: Console.ForegroundColor = ConsoleColor.Green; break;
-                        case 2: Console.ForegroundColor = ConsoleColor.Blue; break;
-                        case 3: Console.ForegroundColor = ConsoleColor.DarkYellow; break;
-                    }
-                    for (int i = 0; i < 8; i++)
-                    {
-                        if (stageKitLeds[i, j] == 0)
-                            Console.Write(" ");
-                        else
-                            Console.Write("*");
+                        case 4:
+                            dmxController.SetChannelRange(1,
+                                                        master_dimming, light[0].R, light[0].G, light[0].B, 0, strobe, 0,
+                                                        master_dimming, light[1].R, light[1].G, light[1].B, 0, strobe, 0,
+                                                        master_dimming, light[2].R, light[2].G, light[2].B, 0, strobe, 0,
+                                                        master_dimming, light[3].R, light[3].G, light[3].B, 0, strobe, 0
+                                                        );
+                            break;
+
+                        case LIGHT_LIMIT:
+                            dmxController.SetChannelRange(1,
+                                                        master_dimming, light[0].R, light[0].G, light[0].B, 0, strobe, 0,
+                                                        master_dimming, light[1].R, light[1].G, light[1].B, 0, strobe, 0,
+                                                        master_dimming, light[2].R, light[2].G, light[2].B, 0, strobe, 0,
+                                                        master_dimming, light[3].R, light[3].G, light[3].B, 0, strobe, 0,
+                                                        master_dimming, light[4].R, light[4].G, light[4].B, 0, strobe, 0,
+                                                        master_dimming, light[5].R, light[5].G, light[5].B, 0, strobe, 0,
+                                                        master_dimming, light[6].R, light[6].G, light[6].B, 0, strobe, 0,
+                                                        master_dimming, light[7].R, light[7].G, light[7].B, 0, strobe, 0
+                                                        );
+                            break;
                     }
                 }
+
+                // Make sure the main loop here isn't fighting with the YARG receive thread over the console
+                if (consoleSemaphore.WaitOne() == true)
+                {
+                    // Update the table of lights (0..7) and RGB outputs
+                    for (int i = 0; i < light_count; i++)
+                    {
+                        Console.SetCursorPosition(30, 19 + i);
+                        Console.Write("\x1B[37mLight {0}: \x1B[31m{1:000} \x1B[32m{2:000} \x1B[36m{3:000}\u001b[37m      ", i, light[i].R, light[i].G, light[i].B);
+                    }
+
+                    // Update stage kit LED indicators
+                    for (int j = 0; j < 4; j++)
+                    {
+                        Console.SetCursorPosition(16, 19 + j);
+                        switch (j)
+                        {
+                            case 0: Console.ForegroundColor = ConsoleColor.Red; break;
+                            case 1: Console.ForegroundColor = ConsoleColor.Green; break;
+                            case 2: Console.ForegroundColor = ConsoleColor.Blue; break;
+                            case 3: Console.ForegroundColor = ConsoleColor.DarkYellow; break;
+                        }
+                        for (int i = 0; i < LIGHT_LIMIT; i++)
+                        {
+                            if (stageKitLeds[i, j] == 0)
+                                Console.Write(" ");
+                            else
+                                Console.Write("*");
+                        }
+                    }
+
+                }
+
 
                 Console.ForegroundColor = ConsoleColor.Gray;
 
@@ -312,16 +342,46 @@ public class Program
                         switch (light_count)
                         {
                             case 2: light_count = 4; break;
-                            case 4: light_count = 8; break;
-                            case 8:
+                            case 4: light_count = LIGHT_LIMIT; break;
+                            case LIGHT_LIMIT:
                                 light_count = 2;
                                 // Erase the remaining lines
-                                for (int i = 2; i < 8; i++)
+                                for (int i = 2; i < LIGHT_LIMIT; i++)
                                 {
                                     Console.SetCursorPosition(30, 19 + i);
                                     Console.Write("                    ");
                                 }
                                 break;
+                        }
+                    }
+                    else if( keyPressed.Key == ConsoleKey.M )
+                    {
+                        if (master_dimming > 15)
+                            master_dimming -= 16;
+                        else
+                            master_dimming = 255;
+
+                        Console.SetCursorPosition(30, 28);
+                        Console.Write("press M to toggle master dimming: " + master_dimming + "    ");
+                    }
+                    else
+                    {
+                        if( (keyPressed.Key >= ConsoleKey.D0) && (keyPressed.Key <= ConsoleKey.D7) )
+                        {
+                            if (manualKey == keyPressed.Key)
+                            {
+                                manualKey = ConsoleKey.None;
+                                Console.SetCursorPosition(30, 29);
+                                Console.ForegroundColor = ConsoleColor.DarkGray;
+                                Console.Write("press 0-7 for manual control: off       ");
+                            }
+                            else
+                            {
+                                manualKey = keyPressed.Key;
+                                Console.SetCursorPosition(30, 29);
+                                Console.ForegroundColor = ConsoleColor.White;
+                                Console.Write("press 0-7 for manual control: Light " + char.ToString((char)('0' + (manualKey - ConsoleKey.D0))));
+                            }
                         }
                     }
                 }
@@ -411,7 +471,7 @@ public class Program
         Array YARGdmxData;
         YARGdmxData = (Array)dataPacket.DMPLayer.Data.ToArray();
 
-        for (int i = 0; i < 8; i++)
+        for (int i = 0; i < LIGHT_LIMIT; i++)
         {
             for (int j = 0; j<4; j++)
             {
@@ -421,7 +481,7 @@ public class Program
 
         switch (light_count)
         {
-            case 8: 
+            case LIGHT_LIMIT: 
                 map_lights8(YARGdmxData);
                 break;
 
@@ -851,7 +911,7 @@ public class Program
         if ((byte)dmxData.GetValue(6) == 0)
         {
             strobe = 0;
-            for (int i = 0; i < 8; i++)
+            for (int i = 0; i < LIGHT_LIMIT; i++)
             {
                 light[i] = Color.FromArgb(red[i], green[i], blue[i]);
             }
@@ -860,7 +920,7 @@ public class Program
         {
             // strobe slow
             strobe = 220;
-            for (int i = 0; i < 8; i++)
+            for (int i = 0; i < LIGHT_LIMIT; i++)
             {
                 light[i] = Color.FromArgb(255, 255, 255);
             }
@@ -869,7 +929,7 @@ public class Program
         {
             // strobe slow
             strobe = 240;
-            for (int i = 0; i < 8; i++)
+            for (int i = 0; i < LIGHT_LIMIT; i++)
             {
                 light[i] = Color.FromArgb(255, 255, 255);
             }

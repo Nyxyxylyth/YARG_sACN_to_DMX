@@ -43,6 +43,8 @@ You'll need:
 - [Microsoft's .NET 9.0 framework](https://aka.ms/dotnet-core-applaunch?framework=Microsoft.NETCore.App&framework_version=9.0.0) for your platform of choice
 - If you just want to run the software, head to the [releases](https://github.com/Nyxyxylyth/YARG_sACN_to_DMX/releases) page, download the zip, expand it, and run YARG_sACN_to_DMX.exe
 - You'll also need a male-female cable to daisy-chain each light's DMX out to the next light's DMX in.  These can be stubby little cables like [3.2ft DMX cable](https://www.amazon.com/gp/product/B07D4FMQK4).  You can run up to 1000 feet total.
+- Run [YARG](https://yarg.in/).
+- In YARG, enable DMX output via Settings -> All Settings -> Lighting General: Enable DMX output
 - Depending on cable length and number of lights, you may need a 120-ohm [DMX terminator](https://www.amazon.com/gp/product/B000PO1H94) plugged in to the last light's DMX out in the chain.
 - Each light must be configured in 7-channel mode, configured by buttons on the back, to display on the back panel:
   - A001, A008 (2-light mode)

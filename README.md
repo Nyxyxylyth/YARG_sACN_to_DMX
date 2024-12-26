@@ -19,14 +19,14 @@ This program remaps the 8 sets of Stage Kit LEDs to 2, 4, or 8 cheap DMX [PAR](h
 - Orange = red 255 + green 128
 - If strobe is set: change all lights to white, and set all DMX strobe channels
 - In 2-light mode:
-  - Stage kit LEDs 1, 3, 5, and 7 drive DMX light 1
-  - Stage kit LEDs 2, 4, 6, and 8 drive DMX light 2
+  - Stage kit LED sets 1, 3, 5, and 7 drive DMX light 1
+  - Stage kit LED sets 2, 4, 6, and 8 drive DMX light 2
   - This generally works out as a nice alternating pattern
 - In 4-light mode:
-  - Stage kit LEDs 1 and 4 drive DMX light 1
-  - Stage kit LEDs 2 and 5 drive DMX light 2
-  - Stage kit LEDs 3 and 6 drive DMX light 3
-  - Stage kit LEDs 4 and 7 drive DMX light 4
+  - Stage kit LED sets 1 and 4 drive DMX light 1
+  - Stage kit LED sets 2 and 5 drive DMX light 2
+  - Stage kit LED sets 3 and 6 drive DMX light 3
+  - Stage kit LED sets 4 and 7 drive DMX light 4
   - This generally means marching left to right or right to left
   - [4-light demo on YouTube](https://www.youtube.com/watch?v=yCDondbEzHc)
 - In 8-light mode, each Stage kit LED drives one DMX light.
@@ -39,7 +39,7 @@ This program remaps the 8 sets of Stage Kit LEDs to 2, 4, or 8 cheap DMX [PAR](h
 
 You'll need:
 - An FTDI-based USB->DMX converter, such as this one: [DSD TECH USB to DMX cable](https://www.amazon.com/gp/product/B07WV6P5W6)
-- 2, 4, or 8 DMX lights with the same 7-channel mapping as these OOPSK 36LEDs RGB PAR Lights: [36W LED PAR Can Lights](https://www.amazon.com/gp/product/B0CJLD5QXY)
+- 2, 4, or 8 DMX lights with the same 7-channel mapping as these OOPSK 36LEDs RGB PAR Lights: [36W LED PAR Can Lights](https://www.amazon.com/gp/product/B0CJLD5QXY).  Note that each light is a "wash" light, designed to produce a single color.  There are 36 x 1W LEDs: that means 12 blue, 12 red, and 12 green, where the LEDs of each color are all controlled as one, and are *not* individually addressable. I was going to get one of those ridiculous spinning laser things, but that's simply too much stimulation for my tired old retinas.
 - [Microsoft's .NET 9.0 framework](https://aka.ms/dotnet-core-applaunch?framework=Microsoft.NETCore.App&framework_version=9.0.0) for your platform of choice
 - If you just want to run the software, head to the [releases](https://github.com/Nyxyxylyth/YARG_sACN_to_DMX/releases) page, download the zip, expand it, and run YARG_sACN_to_DMX.exe
 - You'll also need a male-female cable to daisy-chain each light's DMX out to the next light's DMX in.  These can be stubby little cables like [3.2ft DMX cable](https://www.amazon.com/gp/product/B07D4FMQK4).  You can run up to 1000 feet total.
@@ -50,7 +50,6 @@ You'll need:
   - A001, A008 (2-light mode)
   - A001, A008, A015, A022 (4-light mode)
   - A001, A008, A015, A022, A029, A036, A043, A050 (8-light mode)
-- Note that each light is a "wash" light, designed to produce a single color.  There are 36 x 1W LEDs: that means 12 blue, 12 red, and 12 green, where the LEDs of each color are all controlled as one, and are *not* individually addressable. I was going to get one of those ridiculous spinning laser things, but that's simply too much stimulation for my tired old retinas.
 
 ## Other stuff
 

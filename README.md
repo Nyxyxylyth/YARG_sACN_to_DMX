@@ -29,7 +29,7 @@ This program remaps the 8 sets of Stage Kit LEDs to 2, 4, or 8 cheap DMX [PAR](h
   - Stage kit LED sets 4 and 7 drive DMX light 4
   - This generally means marching left to right or right to left
   - [4-light demo on YouTube](https://www.youtube.com/watch?v=yCDondbEzHc)
-- In 8-light mode, each Stage kit LED drives one DMX light.
+- In 8-light mode, each of the 8 Stage kit LED sets drives one DMX light.
   - [8-light demo on YouTube](https://youtu.be/IIHRgSiQf0o)
 - You can toggle the number of lights in the console app with the L key.
 - You can reduce the master dimming level by 16 with every press of the M key (wrapping back around to 255 after 15).

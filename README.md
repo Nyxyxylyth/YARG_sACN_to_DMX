@@ -51,7 +51,7 @@ You'll need:
 - Manual controls in the console application:
   - L key: select 2/4/8 lights
   - M key: reduce master dimming level by 16 with every press (wrapping back around to 255 after 15)
-  - 0-7:  activate manual control for one light at a time.That will keep the blue lights of one DMX light on, to help you aim the light properly.  Manual mode persists until you either select a different number, or press the same number again to switch back to automatic mode.
+  - 0-7:  activate manual control for one light at a time.  That will keep the blue lights of one DMX light on, to help you aim the light properly.  Manual mode persists until you either select a different number, or press the same number again to switch back to automatic mode.
 
 ## Other stuff
 

@@ -23,10 +23,10 @@ This program remaps the 8 sets of Stage Kit LEDs to 2, 4, or 8 cheap DMX [PAR](h
   - Stage kit LED sets 2, 4, 6, and 8 drive DMX light 2
   - This generally works out as a nice alternating pattern
 - In 4-light mode:
-  - Stage kit LED sets 1 and 4 drive DMX light 1
-  - Stage kit LED sets 2 and 5 drive DMX light 2
-  - Stage kit LED sets 3 and 6 drive DMX light 3
-  - Stage kit LED sets 4 and 7 drive DMX light 4
+  - Stage kit LED sets 1 and 5 drive DMX light 1
+  - Stage kit LED sets 2 and 6 drive DMX light 2
+  - Stage kit LED sets 3 and 7 drive DMX light 3
+  - Stage kit LED sets 4 and 8 drive DMX light 4
   - This generally means marching left to right or right to left
   - [4-light demo on YouTube](https://www.youtube.com/watch?v=yCDondbEzHc)
 - In 8-light mode, each of the 8 Stage kit LED sets drives one DMX light.

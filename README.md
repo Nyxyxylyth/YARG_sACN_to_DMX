@@ -49,7 +49,7 @@ You'll need:
   - A001, A008, A015, A022 (4-light mode)
   - A001, A008, A015, A022, A029, A036, A043, A050 (8-light mode)
 - Manual controls:
-  - You can toggle the number of lights in the console app with the L key.
+  - You can select 2/4/8 lights in the console app with the L key.
   - You can reduce the master dimming level by 16 with every press of the M key (wrapping back around to 255 after 15).
   - You can control one light at a time in manual mode by pressing a number (0-7).  That will keep the blue lights of one DMX light on, to help you aim the light properly.  Manual mode persists until you either select a different number, or press the same number again to switch back to automatic mode.
 

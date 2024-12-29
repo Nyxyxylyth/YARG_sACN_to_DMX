@@ -391,7 +391,7 @@ public class Program
                 consoleSemaphore.Release();
             }
 
-            Thread.Sleep(10);  // shoot for 60 Hz
+            //Thread.Sleep(10);  // shoot for 60 Hz
         }
 
         // Cleanup, ensure all channels are set to 0
